@@ -1,0 +1,860 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    color: #ffffff;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.background-texture {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(255,255,255,0.02) 1px, transparent 1px),
+        radial-gradient(circle at 75% 75%, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 50px 50px;
+    z-index: -2;
+}
+
+.background-structure {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        linear-gradient(135deg, transparent 0%, rgba(255,255,255,0.01) 25%, transparent 50%, rgba(255,255,255,0.01) 75%, transparent 100%),
+        linear-gradient(45deg, transparent 0%, rgba(255,255,255,0.005) 50%, transparent 100%);
+    background-size: 200px 200px, 100px 100px;
+    z-index: -1;
+    opacity: 0.3;
+}
+
+/* Navigation */
+.navigation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgba(26, 26, 26, 0.95);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.navigation.scrolled {
+    /* subtle stronger background when page is scrolled; keeps exact visual as before */
+    background: rgba(26, 26, 26, 0.98);
+}
+
+/* Reusable animation helper used by JS observer to avoid inline styles */
+.animate {
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+}
+
+.nav-logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+}
+
+.nav-item a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 300;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.nav-item a:hover, .nav-item a.active {
+    background: rgba(255,255,255,0.1);
+}
+
+.nav-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 4px;
+}
+
+.nav-toggle span {
+    width: 25px;
+    height: 3px;
+    background: #ffffff;
+    transition: all 0.3s ease;
+}
+
+/* Hero Section */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 80px 0 0;
+}
+
+.hero-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0 40px;
+}
+
+.hero-content {
+    animation: fadeInUp 1s ease-out;
+    margin-bottom: 60px;
+}
+
+.hero-logo {
+    border: 3px solid #ffffff;
+    padding: 30px;
+    margin-bottom: 40px;
+    display: inline-block;
+    background: rgba(255,255,255,0.05);
+}
+
+.hero-logo h1 {
+    font-size: 48px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+
+.hero-logo .vision {
+    font-size: 24px;
+    font-weight: 300;
+    letter-spacing: 1px;
+    transform: rotate(90deg);
+    transform-origin: center;
+    margin-top: 20px;
+}
+
+.company-name {
+    font-size: 36px;
+    font-weight: 300;
+    letter-spacing: 2px;
+    color: #cccccc;
+    margin-bottom: 20px;
+}
+
+.tagline {
+    font-size: 24px;
+    line-height: 1.4;
+    margin-bottom: 40px;
+    color: #e0e0e0;
+    max-width: 800px;
+}
+
+/* Services Preview */
+.services-preview {
+    padding: 80px 0;
+    background: rgba(0,0,0,0.3);
+}
+
+.section-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.section-title {
+    font-size: 42px;
+    font-weight: 300;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    color: #ffffff;
+}
+
+.section-subtitle {
+    font-size: 18px;
+    color: #cccccc;
+    font-weight: 300;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.service-card {
+    background: rgba(255,255,255,0.05);
+    border-radius: 10px;
+    padding: 30px;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+
+.service-card:hover {
+    background: rgba(255,255,255,0.1);
+    transform: translateY(-5px);
+    border-color: rgba(255,255,255,0.2);
+}
+
+.service-icon {
+    font-size: 32px;
+    color: #ffffff;
+    margin: 0 auto 20px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.service-title {
+    font-size: 20px;
+    font-weight: 400;
+    margin-bottom: 15px;
+    color: #ffffff;
+}
+
+.service-description {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #cccccc;
+}
+
+/* Projects Preview */
+.projects-preview {
+    padding: 80px 0;
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+}
+
+.project-card {
+    background: rgba(255,255,255,0.05);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.project-card:hover {
+    background: rgba(255,255,255,0.1);
+    transform: translateY(-5px);
+}
+
+.project-image {
+    width: 100%;
+    height: 150px;
+    background: rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+    color: #ffffff;
+}
+
+.project-content {
+    padding: 25px;
+}
+
+.project-title {
+    font-size: 18px;
+    font-weight: 400;
+    margin-bottom: 10px;
+    color: #ffffff;
+}
+
+.project-description {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #cccccc;
+}
+
+/* CTA Section */
+.cta-section {
+    padding: 80px 0;
+    background: rgba(0,0,0,0.5);
+    text-align: center;
+}
+
+.cta-wrap {
+    text-align: center;
+}
+
+/* Styles for the contact-cta section on faq.html */
+.contact-cta {
+    text-align: center;
+    padding: 40px 0; /* Add some padding for better visual separation */
+}
+
+.cta-title {
+    font-size: 36px;
+    font-weight: 300;
+    margin-bottom: 20px;
+    color: #ffffff;
+}
+
+.cta-text {
+    font-size: 18px;
+    color: #cccccc;
+    margin-bottom: 30px;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 15px 30px;
+    background: rgba(255,255,255,0.1);
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    font-weight: 400;
+    border: 1px solid rgba(255,255,255,0.2);
+    margin-top: 30px; /* Abstand nach oben zur Kachel */
+}
+
+.cta-button:hover {
+    background: rgba(255,255,255,0.2);
+    transform: translateY(-2px);
+}
+
+/* Contact Section */
+.contact-section {
+    padding: 80px 0;
+    background: rgba(0,0,0,0.3);
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 20px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 10px;
+    text-decoration: none;
+    color: #ffffff;
+    transition: all 0.3s ease;
+}
+
+.contact-item:hover {
+    background: rgba(255,255,255,0.1);
+    transform: translateY(-2px);
+}
+
+.contact-icon {
+    font-size: 20px;
+    color: #ffffff;
+    width: 40px;
+    text-align: center;
+}
+
+.contact-text {
+    font-size: 16px;
+    font-weight: 300;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .nav-menu {
+        position: fixed;
+        top: 70px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 70px);
+        background: rgba(26, 26, 26, 0.98);
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        padding-top: 50px;
+        transition: left 0.3s ease;
+    }
+
+    .nav-menu.active {
+        left: 0;
+    }
+
+    .nav-toggle {
+        display: flex;
+    }
+
+    .nav-toggle.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .nav-toggle.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .nav-toggle.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -6px);
+    }
+
+    .hero-logo h1 {
+        font-size: 36px;
+    }
+
+    .company-name {
+        font-size: 24px;
+    }
+
+    .tagline {
+        font-size: 18px;
+    }
+
+    .section-title {
+        font-size: 32px;
+    }
+
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .projects-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .nav-container {
+        padding: 0 20px;
+    }
+
+    .section-container {
+        padding: 0 20px;
+    }
+
+    .hero-container {
+        padding: 0 20px;
+    }
+}
+
+/* ===== page-specific styles added to preserve original looks of subpages ===== */
+
+/* dienstleistungen.html (original inline CSS moved here to keep exact visuals) */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 100px 40px 40px;
+}
+
+.page-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.page-title {
+    font-size: 48px;
+    font-weight: 300;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    color: #ffffff;
+}
+
+.page-subtitle {
+    font-size: 18px;
+    color: #cccccc;
+    font-weight: 300;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 40px;
+    margin-bottom: 60px;
+}
+
+.service-card {
+    background: rgba(255,255,255,0.05);
+    border-radius: 10px;
+    padding: 40px;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.service-card:hover {
+    background: rgba(255,255,255,0.1);
+    transform: translateY(-5px);
+    border-color: rgba(255,255,255,0.2);
+}
+
+.service-icon {
+    font-size: 32px;
+    color: #ffffff;
+    margin-bottom: 20px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.service-title {
+    font-size: 24px;
+    font-weight: 400;
+    margin-bottom: 15px;
+    color: #ffffff;
+    text-align: center;
+}
+
+.service-description {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #cccccc;
+    margin-bottom: 20px;
+}
+
+.service-features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.service-features li {
+    padding: 5px 0;
+    color: #e0e0e0;
+    list-style: none;
+    /* bullet shown inline via ::before so text starts immediately */
+}
+
+.service-features li::before {
+    content: "▸";
+    display: inline-block;
+    width: 18px;
+    margin-right: 8px;
+    color: #888;
+    /* aligns the marker directly before the text */
+}
+
+/* projekte.html (original inline CSS moved here) */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 40px;
+}
+
+.project-card {
+    background: rgba(255,255,255,0.05);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.project-card:hover {
+    background: rgba(255,255,255,0.1);
+    transform: translateY(-5px);
+    border-color: rgba(255,255,255,0.2);
+}
+
+.project-image {
+    width: 100%;
+    height: 200px;
+    background: rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    color: #ffffff;
+}
+
+.project-content {
+    padding: 30px;
+}
+
+.project-title {
+    font-size: 24px;
+    font-weight: 400;
+    margin-bottom: 15px;
+    color: #ffffff;
+}
+
+.project-category {
+    font-size: 14px;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+}
+
+.project-description {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #cccccc;
+    margin-bottom: 20px;
+}
+
+.project-details {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.project-details li {
+    padding: 3px 0;
+    color: #e0e0e0;
+    font-size: 14px;
+    list-style: none;
+}
+ 
+.project-details li::before {
+    content: "•";
+    display: inline-block;
+    width: 18px;
+    margin-right: 8px;
+    color: #888;
+}
+
+.project-details strong {
+    color: #ffffff;
+}
+
+/* ueber-uns.html (original inline CSS moved here) */
+.container--narrow {
+    max-width: 1000px;
+}
+
+/* Keep .container as used on other pages; override max-width for this page via a modifier class usage if needed.
+   To avoid changing markup, also provide the exact rules used on the page. */
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 100px 40px 40px;
+}
+
+.content-section {
+    background: rgba(255,255,255,0.05);
+    border-radius: 10px;
+    padding: 40px;
+    margin-bottom: 40px;
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.content-section:hover {
+    border-color: rgba(255,255,255,0.1);
+}
+
+.section-title {
+    font-size: 28px;
+    font-weight: 400;
+    margin-bottom: 20px;
+    color: #ffffff;
+}
+
+.section-text {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #cccccc;
+    margin-bottom: 20px;
+}
+
+.values-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.value-item {
+    text-align: center;
+    padding: 20px;
+}
+
+.value-icon {
+    font-size: 32px;
+    color: #ffffff;
+    margin: 0 auto 15px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.value-title {
+    font-size: 20px;
+    font-weight: 400;
+    margin-bottom: 10px;
+    color: #ffffff;
+}
+
+.value-description {
+    font-size: 14px;
+    color: #cccccc;
+    line-height: 1.6;
+}
+
+.team-section {
+    background: rgba(255,255,255,0.05);
+    border-radius: 10px;
+    padding: 40px;
+    margin-bottom: 40px;
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.team-section:hover {
+    border-color: rgba(255,255,255,0.1);
+}
+
+.team-member {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 10px;
+}
+
+.member-photo {
+    width: 100px;
+    height: 100px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: #ffffff;
+    flex-shrink: 0;
+    font-weight: bold;
+}
+
+.member-info h3 {
+    font-size: 22px;
+    font-weight: 400;
+    margin-bottom: 5px;
+    color: #ffffff;
+}
+
+.member-role {
+    font-size: 16px;
+    color: #888;
+    margin-bottom: 10px;
+}
+
+.member-description {
+    font-size: 14px;
+    color: #cccccc;
+    line-height: 1.6;
+}
+
+/* faq.html (original inline CSS moved here) */
+.faq-section {
+    margin-bottom: 40px;
+}
+
+.section-title--center {
+    text-align: center;
+}
+
+.faq-item {
+    background: rgba(255,255,255,0.05);
+    border-radius: 10px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.faq-item:hover {
+    background: rgba(255,255,255,0.1);
+    border-color: rgba(255,255,255,0.2);
+}
+
+.faq-question {
+    padding: 25px 30px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 400;
+    color: #ffffff;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+}
+
+.faq-question:hover {
+    color: #e0e0e0;
+}
+
+.faq-toggle {
+    font-size: 20px;
+    transition: transform 0.3s ease;
+    font-weight: bold;
+}
+
+.faq-answer {
+    padding: 0 30px 25px;
+    color: #cccccc;
+    line-height: 1.6;
+    font-size: 16px;
+    display: none;
+}
+
+.faq-item.active .faq-answer {
+    display: block;
+}
+
+.faq-item.active .faq-toggle {
+    transform: rotate(45deg);
+}
+
+/* ===== end appended page-specific styles ===== */

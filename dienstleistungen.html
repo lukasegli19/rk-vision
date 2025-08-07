@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self';">
+    <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=()">
+    <title>Dienstleistungen - RK-Vision GmbH</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="background-texture"></div>
+    
+    <nav class="navigation">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">RK-Vision</a>
+            <ul class="nav-menu" id="navMenu">
+                <li class="nav-item"><a href="index.html">Home</a></li>
+                <li class="nav-item"><a href="dienstleistungen.html" class="active">Dienstleistungen</a></li>
+                <li class="nav-item"><a href="projekte.html">Projekte</a></li>
+                <li class="nav-item"><a href="ueber-uns.html">Über uns</a></li>
+                <li class="nav-item"><a href="faq.html">FAQ</a></li>
+                <li class="nav-item"><a href="index.html#contact">Kontakt</a></li>
+            </ul>
+            <div class="nav-toggle" id="navToggle" role="button" aria-controls="navMenu" aria-expanded="false" tabindex="0">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="page-header">
+            <h1 class="page-title">Unsere Dienstleistungen</h1>
+            <p class="page-subtitle">Professionelle Lösungen für moderne Gebäudetechnik</p>
+        </div>
+
+        <div class="services-grid">
+            <div class="service-card" id="automation">
+                <div class="service-icon">■</div>
+                <h2 class="service-title">Gebäudeautomation</h2>
+                <p class="service-description">
+                    Intelligente Steuerungssysteme für Ein- und Mehrfamilienhäuser. Wir planen, installieren und warten moderne Gebäudeautomationslösungen, die Komfort, Sicherheit und Energieeffizienz optimieren.
+                </p>
+                <ul class="service-features">
+                    <li>KNX/EIB Systeme</li>
+                    <li>Smart Home Integration</li>
+                    <li>Beleuchtungssteuerung</li>
+                    <li>Heizungs- und Klimasteuerung</li>
+                    <li>Sicherheitssysteme</li>
+                    <li>Jalousien- und Rollladensteuerung</li>
+                </ul>
+            </div>
+
+            <div class="service-card" id="planning">
+                <div class="service-icon">▲</div>
+                <h2 class="service-title">Unabhängige Elektroplanung</h2>
+                <p class="service-description">
+                    Herstellerunabhängige Elektroplanung für Neu- und Umbauten. Unsere Experten entwickeln massgeschneiderte Lösungen, die technische Anforderungen und wirtschaftliche Aspekte optimal vereinen.
+                </p>
+                <ul class="service-features">
+                    <li>Elektroinstallationsplanung</li>
+                    <li>Schwachstromplanung</li>
+                    <li>Beleuchtungskonzepte</li>
+                    <li>Energieverteilungsplanung</li>
+                    <li>Normkonformität und Sicherheit</li>
+                    <li>Kostenoptimierung</li>
+                </ul>
+            </div>
+
+            <div class="service-card" id="engineering">
+                <div class="service-icon">●</div>
+                <h2 class="service-title">Hard- und Softwareengineering</h2>
+                <p class="service-description">
+                    Entwicklung kundenspezifischer Hard- und Softwarelösungen für komplexe Automatisierungsaufgaben. Von der Konzeption bis zur Implementierung bieten wir vollständige Engineering-Dienstleistungen.
+                </p>
+                <ul class="service-features">
+                    <li>Embedded Systems Entwicklung</li>
+                    <li>Steuerungssoftware</li>
+                    <li>Visualisierungssysteme</li>
+                    <li>Protokoll-Implementierungen</li>
+                    <li>System-Integration</li>
+                    <li>Testing und Validierung</li>
+                </ul>
+            </div>
+
+            <div class="service-card" id="energy">
+                <div class="service-icon">◆</div>
+                <h2 class="service-title">Energieoptimierung</h2>
+                <p class="service-description">
+                    Analyse und Optimierung des Energieverbrauchs in Gebäuden. Wir identifizieren Einsparpotenziale und implementieren Lösungen für nachhaltige und kosteneffiziente Energienutzung.
+                </p>
+                <ul class="service-features">
+                    <li>Energieanalyse und -monitoring</li>
+                    <li>Lastmanagement</li>
+                    <li>Photovoltaik-Integration</li>
+                    <li>Batteriespeichersysteme</li>
+                    <li>Energieeffizienz-Beratung</li>
+                    <li>CO₂-Reduktionsstrategien</li>
+                </ul>
+            </div>
+            <div class="service-card" id="security">
+                <div class="service-icon">◩</div>
+                <h2 class="service-title">Sicherheits- und<br>Datenschutzberatung</h2>
+                <p class="service-description">
+                    Umfassende Beratung zu IT-Sicherheit und Datenschutz in der Gebäudeautomation. Wir helfen Ihnen, Ihre Systeme vor Bedrohungen zu schützen und Compliance zu gewährleisten.
+                </p>
+                <ul class="service-features">
+                    <li>Risikoanalyse und -bewertung</li>
+                    <li>Sicherheitskonzepte</li>
+                    <li>Datenschutz-Audits (DSGVO/DSG)</li>
+                    <li>Netzwerksicherheit</li>
+                    <li>Zugriffsmanagement</li>
+                    <li>Schulungen und Awareness</li>
+                </ul>
+            </div>
+
+            <div class="service-card" id="maintenance">
+                <div class="service-icon">◧</div>
+                <h2 class="service-title">Wartung und<br>Support</h2>
+                <p class="service-description">
+                    Regelmässige Wartung und zuverlässiger Support für Ihre Gebäudeautomationssysteme. Wir sorgen für einen reibungslosen Betrieb und schnelle Hilfe bei Störungen.
+                </p>
+                <ul class="service-features">
+                    <li>Fernwartung und Monitoring</li>
+                    <li>Vor-Ort-Service</li>
+                    <li>Software-Updates</li>
+                    <li>Störungsbehebung</li>
+                    <li>Ersatzteilmanagement</li>
+                    <li>24/7 Notfall-Support</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
