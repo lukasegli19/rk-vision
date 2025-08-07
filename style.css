@@ -481,6 +481,10 @@ body {
     .hero-container {
         padding: 0 20px;
     }
+
+    .container {
+        padding: 100px 20px 40px; /* Anpassung für alle Container auf Unterseiten */
+    }
 }
 
 /* ===== page-specific styles added to preserve original looks of subpages ===== */
@@ -582,7 +586,7 @@ body {
 /* projekte.html (original inline CSS moved here) */
 .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Reduziert auf 300px */
     gap: 40px;
 }
 
@@ -758,6 +762,25 @@ body {
     padding: 20px;
     background: rgba(255,255,255,0.05);
     border-radius: 10px;
+}
+
+@media (max-width: 480px) {
+    .projects-grid {
+        grid-template-columns: 1fr; /* Sicherstellen, dass es auf sehr kleinen Bildschirmen eine Spalte ist */
+    }
+
+    .team-member {
+        flex-direction: column; /* Stapelt Bild und Text vertikal */
+        text-align: center;
+    }
+
+    .member-photo {
+        margin-bottom: 15px; /* Abstand zwischen Bild und Text */
+    }
+
+    .container {
+        padding: 100px 15px 40px; /* Noch weniger Padding für extrem schmale Bildschirme */
+    }
 }
 
 .member-photo {
